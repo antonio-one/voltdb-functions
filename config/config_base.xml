@@ -1,0 +1,31 @@
+    <cluster hostcount="5" sitesperhost="4" kfactor="0" elastic="enabled"/>
+    
+    <!--
+    <systemsettings>
+       <elastic duration="15" throughput="1"/>
+    </systemsettings>
+    -->
+    
+    <partition-detection enabled="true">
+		<snapshot prefix="netfault"/>
+    </partition-detection>
+
+    <snapshot enabled="true" frequency="6h" prefix="event" retain="8"/>
+
+    <commandlog enabled="true" synchronous="false">
+	
+        <frequency time="600" transactions="1000000"/>
+	
+    </commandlog>
+        
+    <paths>
+        <commandlog path="/voltdata/commandlog"/>
+        <commandlogsnapshot path="/voltdata/commandlogsnapshot"/>
+        <exportoverflow path="/voltdata/voltroot/exportoverflow"/>
+        <snapshots path="/voltdata/snapshots"/>
+        <voltdbroot path="/voltdata/voltroot"/>
+    </paths>
+
+    <httpd>
+		<jsonapi enabled="true"/>
+    </httpd>
