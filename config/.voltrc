@@ -1,0 +1,22 @@
+JAVA_HOME=/opt/jdk
+export JAVA_HOME
+PATH=$PATH:$JAVA_HOME:$JAVA_HOME/bin
+export PATH
+
+# this might help with a missing ethtool bug
+PATH=$PATH:/sbin
+export PATH
+
+VOLTDB_HOME=/opt/voltdb/bin
+PATH=$PATH:$VOLTDB_HOME
+export PATH
+
+#ZKLIB=/opt/zookeeper
+#export ZKLIB
+
+VOLTDB_CLASSPATH="$CLASSPATH:/opt/voltdb/voltdb/*:/opt/voltdb/lib/*"
+export VOLTDB_CLASSPATH
+
+export VOLTDB_HEAPMAX="4096"
+export CLIENT_PORT="21212"
+export ADMIN_PORT="21211"
