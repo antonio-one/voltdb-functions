@@ -81,32 +81,32 @@ getNodeInfo() {
 	case ${_INFO} in
 		master)
 		    while read LINE; do
-          NODE_TYPE=$(awk -F, '{print $4}' <<< ${LINE})
-			    if [[ "${NODE_TYPE,,}" == "master" ]]; then
-            export MASTER_HOST=$(awk -F, '{print $2}' <<< ${LINE})
-            Log DEBUG "MASTER_HOST=${MASTER_HOST}"
-          fi
-        done < ${_HOSTS}
-		    ;;
+          		NODE_TYPE=$(awk -F, '{print $4}' <<< ${LINE})
+			if [[ "${NODE_TYPE,,}" == "master" ]]; then
+				export MASTER_HOST=$(awk -F, '{print $2}' <<< ${LINE})
+				Log DEBUG "MASTER_HOST=${MASTER_HOST}"
+          		fi
+        		done < ${_HOSTS}
+		    	;;
 
 		internalip)
 			while read LINE; do
-        NODE_HOSTNAME=$(awk -F, '{print $1}' <<< ${LINE})
-        if [[ "${NODE_HOSTNAME}" == "${HOSTNAME}" ]]; then
-          export INTERNAL_IP=$(awk -F, '{print $2}' <<< ${LINE})
-					Log DEBUG "INTERNAL_IP=${INTERNAL_IP}"
-				fi  
-      done < ${_HOSTS}
+		        NODE_HOSTNAME=$(awk -F, '{print $1}' <<< ${LINE})
+		        if [[ "${NODE_HOSTNAME}" == "${HOSTNAME}" ]]; then
+          			export INTERNAL_IP=$(awk -F, '{print $2}' <<< ${LINE})
+				Log DEBUG "INTERNAL_IP=${INTERNAL_IP}"
+			fi  
+	      		done < ${_HOSTS}
 			;;
 
 		externalip)
-      while read LINE; do
-        NODE_HOSTNAME=$(awk -F, '{print $1}' <<< ${LINE})
-        if [[ "${NODE_HOSTNAME}" == "${HOSTNAME}" ]]; then
-          export EXTERNAL_IP=$(awk -F, '{print $3}' <<< ${LINE})
-					Log DEBUG "EXTERNAL_IP=${EXTERNAL_IP}"
-				fi  
-      done < ${_HOSTS}
+      			while read LINE; do
+        		NODE_HOSTNAME=$(awk -F, '{print $1}' <<< ${LINE})
+		        if [[ "${NODE_HOSTNAME}" == "${HOSTNAME}" ]]; then
+		        	_export EXTERNAL_IP=$(awk -F, '{print $3}' <<< ${LINE})
+				Log DEBUG "EXTERNAL_IP=${EXTERNAL_IP}"
+			fi  
+			done < ${_HOSTS}
 			;;
 
 		download|upload|deploy)
@@ -257,14 +257,14 @@ getTables() {
 
 	downloadCatalog tables
 
-  local -i _MAX_ELEMENT_COUNT=$( jq '.results[0].schema' ${TABLES_JSON_OUT} | grep -i name | wc -l )
+  	local -i _MAX_ELEMENT_COUNT=$( jq '.results[0].schema' ${TABLES_JSON_OUT} | grep -i name | wc -l )
 	local -i _MAX_COLUMN_COUNT=$(jq '.results[0].data[]' ${TABLES_JSON_OUT} | grep "\[" | wc -l)
 
-  for (( i=0; i<${_MAX_ELEMENT_COUNT}; i++ )); do
-    local _IS_TABLE_NAME=$( jq '.results[0].schema['${i}'] | contains ({"name":"TABLE_NAME"})' ${TABLES_JSON_OUT} )
+  	for (( i=0; i<${_MAX_ELEMENT_COUNT}; i++ )); do
+    		local _IS_TABLE_NAME=$( jq '.results[0].schema['${i}'] | contains ({"name":"TABLE_NAME"})' ${TABLES_JSON_OUT} )
 		
 		if [ "${_IS_TABLE_NAME,,}" = "true" ]; then
-            local _TABLE_NAME_POSITION=$i
+            		local _TABLE_NAME_POSITION=$i
 		fi
 	done
 
@@ -294,7 +294,7 @@ getTableInfo() {
     	    _TABLE_NAME_POSITION=$i
     	fi
 
-		if [ "${_IS_REMARK,,}" = "true" ]; then
+	if [ "${_IS_REMARK,,}" = "true" ]; then
         	_REMARKS_POSITION=$i
     	fi
 
