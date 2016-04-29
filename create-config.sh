@@ -17,13 +17,11 @@ SOCKET_TIMEOUT=${3}
 if [[ -z ${GROUP_ID} ]]; then GROUP_ID=voltdb_default; fi
 if [[ -z ${SOCKET_TIMEOUT} ]]; then SOCKET_TIMEOUT=60000; fi
 
-#
 # Blows up if variable(s) are bad                                
-#
 
 if [[ "${TYPE}" != "mute" && "${TYPE}" != "consume" ]]; then
-  echo ${TYPE}
-  echo -ne "Incorrect TYPE value. \n${USAGE}\n"
+  	echo ${TYPE}
+  	echo -ne "Incorrect TYPE value. \n${USAGE}\n"
 	exit 777
 elif [[ "${TYPE}" = "mute" ]]; then
 	:	# do nothing
@@ -49,7 +47,7 @@ rm -f ${IMPORT_CONFIG_PATH} 2>/dev/null
 
 if [[ "${TYPE}" = "mute" ]]; then
 
-	:	#echo "\t\t<!-- import configuration muted -->" > ${IMPORT_CONFIG_PATH}
+	:	echo "\t\t<!-- import configuration muted -->" > ${IMPORT_CONFIG_PATH}
 
 else 
 
@@ -59,13 +57,13 @@ else
 		EVENT_ID=$(echo ${LINE} | awk -F"_" '{print $2}') 
 
 		PART_CONFIG='                                                                                     
-		\t\t    <configuration module="kafkastream.jar" format="tsv" type="custom" enabled="true">    \n
-		\t\t\t      <property name="brokers">'${BROKER_LIST}'</property>									            \n
-		\t\t\t		<property name="groupid">'${GROUP_ID}'</property>										                \n
-		\t\t\t      <property name="topics">event_'${EVENT_ID}'_log</property>                        \n
-		\t\t\t      <property name="procedure">'${PROCEDURE}'</property>                              \n
-		\t\t\t      <property name="socket.timeout.ms">'${SOCKET_TIMEOUT}'</property>                 \n
-		\t\t    </configuration>																			                                \n'
+		\t\t    <configuration module="kafkastream.jar" format="tsv" type="custom" enabled="true">	\n
+		\t\t\t      <property name="brokers">'${BROKER_LIST}'</property>				\n
+		\t\t\t		<property name="groupid">'${GROUP_ID}'</property>				\n
+		\t\t\t      <property name="topics">event_'${EVENT_ID}'_log</property				\n
+		\t\t\t      <property name="procedure">'${PROCEDURE}'</property>				\n
+		\t\t\t      <property name="socket.timeout.ms">'${SOCKET_TIMEOUT}'</property			\n
+		\t\t    </configuration>									\n'
 	
 		echo -e ${PART_CONFIG} >> ${IMPORT_CONFIG_PATH}  
 
