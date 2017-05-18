@@ -14,12 +14,12 @@ export voltdb_heapmax="8192"
 export voltdb_client_port="21212"
 export voltdb_admin_port="21211"
 
-export voltdb_host_file=$(find $nerve_common -name host.${ENV}.csv)
+export voltdb_host_file=$(find $common -name host.${ENV}.csv)
 export voltdb_hosts=$(awk -F',' '{print $1}' $voltdb_host_file | tail -n+2)
 export voltdb_node_count=$(( $(cat $voltdb_host_file | wc -l) - 1 ))
 sqlcmd_servers=$(awk -F',' '{print $3}' $voltdb_host_file | tail -n+2 | tr '\n' ',')
 export sqlcmd_servers=${sqlcmd_servers:0:${#sqlcmd_servers}-1}
-export voltdb_deploy_home=$nerve_common/voltdb-deploy
+export voltdb_deploy_home=$common/voltdb-deploy
 
 export voltdb_client_jar=voltdbclient-6.9.4.jar
 export voltdb_hadoop_jar=voltdb-hadoop-1.1-SNAPSHOT.jar
@@ -36,7 +36,7 @@ voltdb_export_client_timeout=2400000
 
 function get_voltdb_init_config() {
 
-	export voltdb_init_config_path=$(find $nerve_common -name voltdb.config.init.${ENV}.xml)
+	export voltdb_init_config_path=$(find $common -name voltdb.config.init.${ENV}.xml)
 	fLog DEBUG "voltdb_init_config_path=$voltdb_init_config_path"
 
 } # End get_voltdb_init_config
@@ -45,7 +45,7 @@ function get_voltdb_config_path() {
 
 	local _type="${1}"
 
-	export voltdb_config_path=$(find $nerve_common -name voltdb.config.${_type}.${ENV}.xml)
+	export voltdb_config_path=$(find $common -name voltdb.config.${_type}.${ENV}.xml)
 	fLog DEBUG "voltdb_config_path=$voltdb_config_path"
 
 } # End get_voltdb_config_path
