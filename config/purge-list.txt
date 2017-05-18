@@ -1,0 +1,7 @@
+table_1 dt days  2
+table_2 dt days  2
+table_3 updated_msts  days  2
+table_4  updated_msts  days  2
+table_5 updated_msts  days  90
+table_6 updated_msts  days  90
+table_7 dt days  28
