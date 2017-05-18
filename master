@@ -36,3 +36,108 @@ function Logln() {
     esac
     echo "${_msg}" 1>&2
 }
+
+# global variables
+
+i=0
+args=("$@")
+while [[ $# -gt $i ]]; do
+  case "${args[$i]}" in
+    "--env")
+      i[${#i[@]}]="${args[$i]}" && let ++i && ENV="${args[$i]}"
+      Logln DEBUG "Parameter found ENV=${ENV}"
+      ;;
+    "--batch")
+      i[${#i[@]}]="${args[$i]}" && let ++i && BATCH="${args[$i]}"
+      Logln DEBUG "Parameter found BATCH=${BATCH}"
+      ;;
+    "--date")
+      i[${#i[@]}]="${args[$i]}" && let ++i && DATE="${args[$i]}"
+      Logln DEBUG "Parameter found DATE=${DATE}"
+      ;;
+    "--date-from")
+      i[${#i[@]}]="${args[$i]}" && let ++i && DATE_FROM="${args[$i]}"
+      Logln DEBUG "Parameter found DATE_FROM=${DATE_FROM}"
+      ;;
+    "--date-to")
+      i[${#i[@]}]="${args[$i]}" && let ++i && DATE_TO="${args[$i]}"
+      echo ${args[$i]}
+      Logln DEBUG "Parameter found DATE_TO=${DATE_TO}"
+      ;;
+    "--msts-from")
+      i[${#i[@]}]="${args[$i]}" && let ++i && MSTS_FROM="${args[$i]}"
+      Logln DEBUG "Parameter found MSTS_FROM=${MSTS_FROM}"
+      ;;
+    "--msts-to")
+      i[${#i[@]}]="${args[$i]}" && let ++i && MSTS_TO="${args[$i]}"
+      Logln DEBUG "Parameter found MSTS_TO=${MSTS_TO}"
+      ;;
+    "--schema")
+      i[${#i[@]}]="${args[$i]}" && let ++i && SCHEMA="${args[$i]}"
+      Logln DEBUG "Parameter found SCHEMA=${SCHEMA}"
+      ;;
+    "--table-name")
+      i[${#i[@]}]="${args[$i]}" && let ++i && TABLE_NAME="${args[$i]}"
+      Logln DEBUG "Parameter found TABLE_NAME=${TABLE_NAME}"
+      ;;
+    "--voltdb-start-cmd")
+      i[${#i[@]}]="${args[$i]}" && let ++i && VOLTDB_START_CMD="${args[$i]}"
+      Logln DEBUG "Parameter found VOLTDB_START_CMD=${VOLTDB_START_CMD}"
+      ;;
+    "--truncate")
+      i[${#i[@]}]="${args[$i]}" && let ++i && TRUNCATE="${args[$i]}"
+      Logln DEBUG "Parameter found TRUNCATE=${TRUNCATE}"
+      if [ -z ${TRUNCATE} ]; then TRUNCATE=false; fi
+      if [ ${TRUNCATE} == "true" ]; then
+        UPSERT="false"
+      else
+        UPSERT="true"
+      fi
+      Logln DEBUG "Parameter implied UPSERT=${UPSERT}"
+      ;;
+    "--file-path")
+      i[${#i[@]}]="${args[$i]}" && let ++i && FILE_PATH="${args[$i]}"
+      Logln DEBUG "Parameter found FILE_PATH=${FILE_PATH}"
+      ;;
+    "--job-name")
+      i[${#i[@]}]="${args[$i]}" && let ++i && JOB_NAME="${args[$i]}"
+      Logln DEBUG "Parameter found JOB_NAME=${JOB_NAME}"
+      ;;
+    "--group-id")
+      i[${#i[@]}]="${args[$i]}" && let ++i && GROUP_ID="${args[$i]}"
+      Logln DEBUG "Parameter found GROUP_ID=${GROUP_ID}"
+      ;;
+    "--topic")
+      i[${#i[@]}]="${args[$i]}" && let ++i && TOPIC="${args[$i]}"
+      Logln DEBUG "Parameter found TOPIC=${TOPIC}"
+      ;;
+    "--procedure")
+      i[${#i[@]}]="${args[$i]}" && let ++i && PROCEDURE="${args[$i]}"
+      Logln DEBUG "Parameter found PROCEDURE=${PROCEDURE}"
+      ;;
+    "--formatter")
+      i[${#i[@]}]="${args[$i]}" && let ++i && FORMATTER="${args[$i]}"
+      Logln DEBUG "Parameter found FORMATTER=${FORMATTER}"
+      ;;
+    "--skip-this")
+      i[${#i[@]}]="${args[$i]}" && let ++i && SKIP_THIS="${args[$i]}"
+      Logln DEBUG "Parameter found SKIP_THIS=${SKIP_THIS}"
+      ;;
+    "--query")
+      i[${#i[@]}]="${args[$i]}" && let ++i && QUERY="${args[$i]}"
+      Logln DEBUG "Parameter found QUERY=${QUERY}"
+      ;;
+    "--timeout")
+      i[${#i[@]}]="${args[$i]}" && let ++i && TIMEOUT="${args[$i]}"
+      Logln DEBUG "Parameter found TIMEOUT=${TIMEOUT}"
+      ;;
+    "--option")
+      i[${#i[@]}]="${args[$i]}" && let ++i && OPTION="${args[$i]}"
+      Logln DEBUG "Parameter found OPTION=${OPTION}"
+      ;;
+    *)
+      Logln INFO "Ignoring parameter ${args[$i]}"
+      ;;
+  esac
+  let ++i
+done
