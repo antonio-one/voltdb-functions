@@ -1,6 +1,0 @@
-hostname,internalip,externalip,type
-bivolt01,0.0.0.1,1.1.1.1,master
-bivolt02,0.0.0.2,1.1.1.2,node
-bivolt03,0.0.0.3,1.1.1.3,node
-bivolt04,0.0.0.4,1.1.1.4,node
-bivolt05,0.0.0.5,1.1.1.5,node
