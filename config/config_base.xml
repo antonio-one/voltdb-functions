@@ -1,31 +1,46 @@
-    <cluster hostcount="5" sitesperhost="4" kfactor="0" elastic="enabled"/>
-    
-    <!--
-    <systemsettings>
-       <elastic duration="15" throughput="1"/>
-    </systemsettings>
-    -->
-    
-    <partition-detection enabled="true">
-		<snapshot prefix="netfault"/>
-    </partition-detection>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 
-    <snapshot enabled="true" frequency="6h" prefix="event" retain="8"/>
+<deployment>
 
-    <commandlog enabled="true" synchronous="false">
-	
-        <frequency time="600" transactions="1000000"/>
-	
-    </commandlog>
-        
+    <cluster hostcount="10" sitesperhost="24" kfactor="1" elastic="enabled" schema="ddl"/>
+
     <paths>
-        <commandlog path="/voltdata/commandlog"/>
-        <commandlogsnapshot path="/voltdata/commandlogsnapshot"/>
-        <exportoverflow path="/voltdata/voltroot/exportoverflow"/>
-        <snapshots path="/voltdata/snapshots"/>
-        <voltdbroot path="/voltdata/voltroot"/>
+        <voltdbroot path="/db/voltroot"/>
+        <commandlog path="/db/tlog/commandlog"/>
+        <commandlogsnapshot path="/db/snapshot/commandlogsnapshot"/>
+        <droverflow path="/db/voltroot/dr_overflow"/>
+        <exportoverflow path="/db/voltroot/exportoverflow"/>
+        <snapshots path="/db/snapshot/snapshots"/>
     </paths>
 
+    <partition-detection>
+        <snapshot/>
+    </partition-detection>
+
+    <admin-mode/>
+
+    <heartbeat/>
+
     <httpd>
-		<jsonapi enabled="true"/>
+        <jsonapi enabled="true"/>
     </httpd>
+
+    <snapshot frequency="1h" retain="12" prefix="prefix" enabled="false"/>
+
+    <commandlog synchronous="false" enabled="false">
+        <frequency time="5000" transactions="5000000"/>
+    </commandlog>
+
+    <systemsettings>
+        <temptables maxsize="300"/>
+        <snapshot/>
+        <elastic/>
+        <query timeout="20000"/>
+        <resourcemonitor>
+            <memorylimit/>
+        </resourcemonitor>
+    </systemsettings>
+
+    <security/>
+
+</deployment>
