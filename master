@@ -1,0 +1,38 @@
+#!/bin/bash
+
+if [ -z $sites_home ]; then
+  export sites_home=/somewhere/sites
+fi
+
+pushd $(dirname ${BASH_SOURCE[0]}) > /dev/null
+SCRIPTPATH=$(pwd -P)
+popd > /dev/null
+
+export common=$SCRIPTPATH
+
+[[ -t 1 ]] && source $common/include/colours.sh
+
+function Logln() {
+
+    local _type="${1}"
+    local _msg="${2}"
+
+    case "$_type" in
+      "DEBUG")
+        echo -en "$(date -u) [${BIPurple}${_type}${cOff}] " 1>&2
+        ;;
+      "INFO")
+        echo -en "$(date -u) [${BIWhite}${_type}${cOff}] " 1>&2
+        ;;
+      "WARN")
+        echo -en "$(date -u) [${BIYellow}${_type}${cOff}] " 1>&2
+        ;;
+      "ERROR"|"FATAL")
+        echo -en "$(date -u) [${BIRed}${_type}${cOff}] " 1>&2
+        ;;
+      *)
+        echo -en "$(date -u) [${BIPurple}${_type}${cOff}] " 1>&2
+        ;;
+    esac
+    echo "${_msg}" 1>&2
+}
