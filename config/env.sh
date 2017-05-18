@@ -29,7 +29,7 @@ export hive_jdbc_db="antonio"
 export kafka_bin=/opt/kafka/bin
 export kafka_zookeeper=zk01:2181,zk02:2181,zk03:2181/kafka
 export kafka_broker=br01:9092,br02:9092,br03:9092
-export group_id=nerve.prod.4
+export group_id=antonio.prod.4
 
 ######### Kafka BETA ##########
 
